@@ -1,0 +1,453 @@
+/* ============================================================
+   BREEZE WEATHER APP — weather.css
+   Weather Themes, Temperature, Details, Unit Toggle, Icons
+   ============================================================ */
+
+/* ============================================================
+   WEATHER THEME GRADIENTS (applied via data-weather on body)
+   ============================================================ */
+
+/* — Clear — */
+body[data-weather="clear"] {
+  background: linear-gradient(135deg, #F6D365 0%, #FDA085 100%);
+}
+
+body[data-weather="clear"][data-time="night"] {
+  background: linear-gradient(135deg, #0c1445 0%, #1a237e 40%, #283593 100%);
+}
+
+/* — Clouds — */
+body[data-weather="clouds"] {
+  background: linear-gradient(135deg, #667eaa 0%, #a8c0cc 50%, #d4b8e0 100%);
+}
+
+body[data-weather="clouds"][data-time="night"] {
+  background: linear-gradient(135deg, #2c3e6b 0%, #4a5a7a 50%, #6b5b8a 100%);
+}
+
+/* — Rain — */
+body[data-weather="rain"] {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+}
+
+body[data-weather="rain"][data-time="night"] {
+  background: linear-gradient(135deg, #080e13 0%, #141f26 50%, #1a2f3a 100%);
+}
+
+/* — Drizzle (variation of rain) — */
+body[data-weather="drizzle"] {
+  background: linear-gradient(135deg, #1a3a4a 0%, #2a5060 50%, #3a6878 100%);
+}
+
+body[data-weather="drizzle"][data-time="night"] {
+  background: linear-gradient(135deg, #0d1f28 0%, #1a3040 50%, #254050 100%);
+}
+
+/* — Thunderstorm — */
+body[data-weather="thunderstorm"] {
+  background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #302b63 100%);
+}
+
+body[data-weather="thunderstorm"][data-time="night"] {
+  background: linear-gradient(135deg, #08061a 0%, #0e0e1e 50%, #1e1a40 100%);
+}
+
+/* — Snow — */
+body[data-weather="snow"] {
+  background: linear-gradient(135deg, #e6e9f0 0%, #c8daf0 50%, #eef1f5 100%);
+}
+
+body[data-weather="snow"][data-time="night"] {
+  background: linear-gradient(135deg, #b8c6db 0%, #9aaccc 50%, #c4cfe0 100%);
+  --color-text-primary: rgba(20, 30, 50, 0.92);
+  --color-text-secondary: rgba(20, 30, 50, 0.65);
+  --color-text-tertiary: rgba(20, 30, 50, 0.4);
+}
+
+/* — Mist / Fog / Haze — */
+body[data-weather="mist"],
+body[data-weather="fog"],
+body[data-weather="haze"] {
+  background: linear-gradient(135deg, #606c88 0%, #8a9bae 50%, #b0b8c1 100%);
+}
+
+body[data-weather="mist"][data-time="night"],
+body[data-weather="fog"][data-time="night"],
+body[data-weather="haze"][data-time="night"] {
+  background: linear-gradient(135deg, #3a4258 0%, #556070 50%, #6a7280 100%);
+}
+
+/* — Smoke / Dust / Sand / Ash — */
+body[data-weather="smoke"],
+body[data-weather="dust"],
+body[data-weather="sand"],
+body[data-weather="ash"] {
+  background: linear-gradient(135deg, #544a3e 0%, #7a6e5e 50%, #9c8e7c 100%);
+}
+
+/* — Squall / Tornado — */
+body[data-weather="squall"],
+body[data-weather="tornado"] {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 50%, #434360 100%);
+}
+
+/* — Default / Fallback — */
+body[data-weather="default"],
+body:not([data-weather]) {
+  background: linear-gradient(135deg, #0f1923 0%, #1a2a3a 50%, #253545 100%);
+}
+
+/* Smooth theme transition on body background */
+body {
+  transition: background var(--transition-theme);
+}
+
+/* ============================================================
+   WEATHER LOCATION
+   ============================================================ */
+.weather-location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.weather-location .city-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.weather-location .country-flag {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.weather-location .country-code {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   WEATHER ICON CONTAINER
+   ============================================================ */
+.weather-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin: var(--space-md) auto;
+  position: relative;
+}
+
+.weather-icon-container img,
+.weather-icon-container svg,
+.weather-icon-container .weather-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.15));
+  transition: transform var(--transition-smooth),
+              filter var(--transition-base);
+}
+
+.weather-main-card:hover .weather-icon-container img,
+.weather-main-card:hover .weather-icon-container svg,
+.weather-main-card:hover .weather-icon-container .weather-icon {
+  transform: scale(1.05);
+  filter: drop-shadow(0 6px 28px rgba(0, 0, 0, 0.2));
+}
+
+/* Icon glow effect behind weather icon */
+.weather-icon-container::before {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  filter: blur(20px);
+  transition: opacity var(--transition-theme);
+}
+
+/* Theme-specific icon glows */
+body[data-weather="clear"] .weather-icon-container::before {
+  background: radial-gradient(circle, rgba(246, 211, 101, 0.3) 0%, transparent 70%);
+}
+
+body[data-weather="thunderstorm"] .weather-icon-container::before {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+}
+
+body[data-weather="snow"] .weather-icon-container::before {
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
+}
+
+/* ============================================================
+   TEMPERATURE DISPLAY
+   ============================================================ */
+.weather-temp-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin: var(--space-sm) 0;
+}
+
+.temperature-display {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1;
+}
+
+#temperature,
+.temperature-display .temp-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-temp);
+  font-weight: var(--weight-extrabold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  transition: color var(--transition-theme);
+}
+
+.temp-unit {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-light);
+  color: var(--color-text-secondary);
+  margin-top: 0.1em;
+  margin-left: 0.05em;
+  transition: color var(--transition-theme);
+}
+
+/* ============================================================
+   UNIT TOGGLE BUTTON
+   ============================================================ */
+.unit-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.unit-toggle-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.unit-toggle-btn:hover {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--glass-border-hover);
+  transform: scale(1.05);
+}
+
+.unit-toggle-btn:hover::after {
+  opacity: 1;
+}
+
+.unit-toggle-btn:active {
+  transform: scale(0.96);
+}
+
+/* Active unit state */
+.unit-toggle-btn .unit-active {
+  color: var(--color-text-primary);
+  font-weight: var(--weight-bold);
+}
+
+.unit-toggle-btn .unit-inactive {
+  opacity: 0.45;
+}
+
+.unit-toggle-btn .unit-separator {
+  margin: 0 0.15em;
+  opacity: 0.3;
+}
+
+/* ============================================================
+   WEATHER DESCRIPTION
+   ============================================================ */
+#weather-description,
+.weather-description {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+  text-align: center;
+  margin-top: var(--space-xs);
+  letter-spacing: 0.01em;
+  transition: color var(--transition-theme);
+}
+
+/* ============================================================
+   DETAIL CARDS — Theme Variations
+   ============================================================ */
+
+/* Clear day — warm tones */
+body[data-weather="clear"] .detail-icon {
+  background: rgba(253, 160, 133, 0.2);
+}
+
+body[data-weather="clear"] .detail-card:hover .detail-icon {
+  background: rgba(253, 160, 133, 0.3);
+}
+
+/* Rain — cool blue tones */
+body[data-weather="rain"] .detail-icon,
+body[data-weather="drizzle"] .detail-icon {
+  background: rgba(96, 165, 250, 0.15);
+}
+
+body[data-weather="rain"] .detail-card:hover .detail-icon,
+body[data-weather="drizzle"] .detail-card:hover .detail-icon {
+  background: rgba(96, 165, 250, 0.25);
+}
+
+/* Thunderstorm — purple tones */
+body[data-weather="thunderstorm"] .detail-icon {
+  background: rgba(139, 92, 246, 0.2);
+}
+
+body[data-weather="thunderstorm"] .detail-card:hover .detail-icon {
+  background: rgba(139, 92, 246, 0.3);
+}
+
+/* Snow — icy blue tones */
+body[data-weather="snow"] .detail-icon {
+  background: rgba(96, 165, 250, 0.12);
+}
+
+body[data-weather="snow"] .detail-card:hover .detail-icon {
+  background: rgba(96, 165, 250, 0.22);
+}
+
+/* Mist — muted tones */
+body[data-weather="mist"] .detail-icon,
+body[data-weather="fog"] .detail-icon,
+body[data-weather="haze"] .detail-icon {
+  background: rgba(176, 184, 193, 0.2);
+}
+
+body[data-weather="mist"] .detail-card:hover .detail-icon,
+body[data-weather="fog"] .detail-card:hover .detail-icon,
+body[data-weather="haze"] .detail-card:hover .detail-icon {
+  background: rgba(176, 184, 193, 0.3);
+}
+
+/* ============================================================
+   WEATHER ICON SIZE VARIANTS
+   ============================================================ */
+.weather-icon-sm {
+  width: 32px;
+  height: 32px;
+}
+
+.weather-icon-md {
+  width: 64px;
+  height: 64px;
+}
+
+.weather-icon-lg {
+  width: 96px;
+  height: 96px;
+}
+
+.weather-icon-xl {
+  width: 128px;
+  height: 128px;
+}
+
+/* ============================================================
+   CLEAR DAY — Warm text hinting
+   ============================================================ */
+body[data-weather="clear"][data-time="day"] {
+  --color-text-primary: rgba(60, 30, 10, 0.92);
+  --color-text-secondary: rgba(60, 30, 10, 0.65);
+  --color-text-tertiary: rgba(60, 30, 10, 0.4);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-bg-hover: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --glass-border-hover: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px rgba(180, 100, 50, 0.1);
+  --glass-shadow-hover: 0 12px 48px rgba(180, 100, 50, 0.16);
+  --color-accent: #d97706;
+  --color-accent-hover: #b45309;
+  --color-accent-glow: rgba(217, 119, 6, 0.3);
+}
+
+/* ============================================================
+   NIGHT VARIANTS — Deeper text & accents
+   ============================================================ */
+body[data-time="night"] {
+  --color-accent: #818cf8;
+  --color-accent-hover: #a5b4fc;
+  --color-accent-glow: rgba(129, 140, 248, 0.3);
+}
+
+/* ============================================================
+   CLOUDS — Subtle lavender accent
+   ============================================================ */
+body[data-weather="clouds"] {
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #a78bfa;
+  --color-accent-glow: rgba(139, 92, 246, 0.3);
+}
+
+body[data-weather="clouds"][data-time="day"] {
+  --color-text-primary: rgba(40, 30, 60, 0.9);
+  --color-text-secondary: rgba(40, 30, 60, 0.62);
+  --color-text-tertiary: rgba(40, 30, 60, 0.38);
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-bg-hover: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-border-hover: rgba(255, 255, 255, 0.45);
+}
+
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+@media (max-width: 360px) {
+  .weather-icon-container {
+    width: 96px;
+    height: 96px;
+  }
+
+  .weather-location .city-name {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (min-width: 768px) {
+  .weather-icon-container {
+    width: 140px;
+    height: 140px;
+  }
+}

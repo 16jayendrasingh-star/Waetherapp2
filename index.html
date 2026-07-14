@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Breeze — A relaxing weather app with beautiful animations and real-time weather data powered by OpenWeatherMap.">
+  <title>Breeze — Weather</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/weather.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-weather="clear" data-time="day">
+  <!-- Full-viewport canvas for particle animations -->
+  <canvas id="weather-canvas" aria-hidden="true"></canvas>
+
+  <!-- CSS overlay for lightning/fog effects -->
+  <div class="weather-overlay" id="weather-overlay" aria-hidden="true"></div>
+
+  <!-- API Key Modal -->
+  <div id="api-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card glass-card">
+      <div class="modal-header">
+        <span class="modal-icon">🌤️</span>
+        <h2 id="modal-title">Welcome to Breeze</h2>
+      </div>
+      <p class="modal-description">Enter your free OpenWeatherMap API key to get started. Get one at <a href="https://openweathermap.org/api" target="_blank" rel="noopener">openweathermap.org</a></p>
+      <div class="modal-input-group">
+        <input type="text" id="api-key-input" placeholder="Paste your API key here..." aria-label="API key" autocomplete="off" spellcheck="false">
+        <button id="save-api-key" class="btn-primary" aria-label="Save API key">Get Started →</button>
+      </div>
+      <p class="modal-hint">Your key is stored locally and never sent anywhere except OpenWeatherMap.</p>
+    </div>
+  </div>
+
+  <!-- Main App Content -->
+  <main class="app-content">
+    <!-- Search Bar -->
+    <div class="search-container">
+      <form id="search-form" role="search" aria-label="Search for a city">
+        <div class="search-input-wrapper glass-card">
+          <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input type="text" id="city-input" placeholder="Search city..." aria-label="City name" autocomplete="off" spellcheck="false">
+          <button type="submit" id="search-btn" class="icon-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="search-divider"></div>
+          <button type="button" id="geo-btn" class="icon-btn" aria-label="Use my location">
+            <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading-container" class="loading-container" style="display: none;" aria-live="polite">
+      <div class="weather-main-card glass-card">
+        <div class="skeleton skeleton-city"></div>
+        <div class="skeleton skeleton-icon"></div>
+        <div class="skeleton skeleton-temp"></div>
+        <div class="skeleton skeleton-desc"></div>
+      </div>
+      <div class="weather-details-grid">
+        <div class="detail-card glass-card"><div class="skeleton skeleton-detail"></div></div>
+        <div class="detail-card glass-card"><div class="skeleton skeleton-detail"></div></div>
+        <div class="detail-card glass-card"><div class="skeleton skeleton-detail"></div></div>
+        <div class="detail-card glass-card"><div class="skeleton skeleton-detail"></div></div>
+        <div class="detail-card glass-card"><div class="skeleton skeleton-detail"></div></div>
+        <div class="detail-card glass-card"><div class="skeleton skeleton-detail"></div></div>
+      </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-container" class="error-toast" role="alert" style="display: none;">
+      <span class="error-icon">⚠️</span>
+      <p id="error-message"></p>
+    </div>
+
+    <!-- Weather Display -->
+    <div id="weather-container" class="weather-container" style="display: none;">
+      <!-- Main Weather Card -->
+      <div class="weather-main-card glass-card">
+        <div class="weather-location">
+          <h1 id="city-name">—</h1>
+          <span id="country-flag" aria-label="Country flag"></span>
+        </div>
+        <div class="weather-icon-container" id="weather-icon-container" aria-hidden="true">
+          <!-- Animated SVG weather icon injected here by JS -->
+        </div>
+        <div class="weather-temp-container">
+          <div class="temperature-display">
+            <span id="temperature" class="temperature-value">--</span>
+            <span class="temp-unit">°C</span>
+          </div>
+          <button id="unit-toggle" class="unit-toggle-btn" aria-label="Toggle temperature unit">°F</button>
+        </div>
+        <p id="weather-description" class="weather-description">—</p>
+      </div>
+
+      <!-- Weather Details Grid -->
+      <div class="weather-details-grid">
+        <div class="detail-card glass-card" data-type="feels-like">
+          <div class="detail-icon">🌡️</div>
+          <div class="detail-info">
+            <span class="detail-value" id="feels-like">--</span>
+            <span class="detail-label">Feels Like</span>
+          </div>
+        </div>
+        <div class="detail-card glass-card" data-type="humidity">
+          <div class="detail-icon">💧</div>
+          <div class="detail-info">
+            <span class="detail-value" id="humidity">--</span>
+            <span class="detail-label">Humidity</span>
+          </div>
+        </div>
+        <div class="detail-card glass-card" data-type="wind">
+          <div class="detail-icon">💨</div>
+          <div class="detail-info">
+            <span class="detail-value" id="wind">--</span>
+            <span class="detail-label">Wind</span>
+          </div>
+        </div>
+        <div class="detail-card glass-card" data-type="pressure">
+          <div class="detail-icon">🔻</div>
+          <div class="detail-info">
+            <span class="detail-value" id="pressure">--</span>
+            <span class="detail-label">Pressure</span>
+          </div>
+        </div>
+        <div class="detail-card glass-card" data-type="visibility">
+          <div class="detail-icon">👁️</div>
+          <div class="detail-info">
+            <span class="detail-value" id="visibility">--</span>
+            <span class="detail-label">Visibility</span>
+          </div>
+        </div>
+        <div class="detail-card glass-card" data-type="sunrise-sunset">
+          <div class="detail-icon">🌅</div>
+          <div class="detail-info">
+            <span class="detail-value" id="sunrise-sunset">--</span>
+            <span class="detail-label">Sunrise / Sunset</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Powered by <a href="https://openweathermap.org" target="_blank" rel="noopener">OpenWeatherMap</a></p>
+    </footer>
+  </main>
+
+  <!-- JavaScript -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

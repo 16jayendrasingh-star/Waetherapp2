@@ -1,0 +1,799 @@
+/* ============================================================
+   BREEZE WEATHER APP — animations.css
+   Keyframes, Skeletons, Entrances, Overlays, Transitions
+   ============================================================ */
+
+/* ============================================================
+   @KEYFRAMES
+   ============================================================ */
+
+/* — Fade In Up (card entrance) — */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* — Fade In (generic) — */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* — Fade In Scale (modal / overlays) — */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* — Shimmer (loading skeleton) — */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* — Cloud Float (gentle horizontal drift) — */
+@keyframes cloudFloat {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(15px) translateY(-5px);
+  }
+  50% {
+    transform: translateX(5px) translateY(3px);
+  }
+  75% {
+    transform: translateX(-10px) translateY(-3px);
+  }
+}
+
+/* — Sun Pulse (warm glow pulsation) — */
+@keyframes sunPulse {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(246, 211, 101, 0.2),
+                0 0 80px rgba(253, 160, 133, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(246, 211, 101, 0.35),
+                0 0 120px rgba(253, 160, 133, 0.2);
+    transform: scale(1.03);
+  }
+}
+
+/* — Sun Rotate (gentle spinning of sun rays) — */
+@keyframes sunRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* — Rain Fall (vertical drop) — */
+@keyframes rainFall {
+  0% {
+    transform: translateY(-100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-20px);
+    opacity: 0;
+  }
+}
+
+/* — Rain Fall Variant (slight angle) — */
+@keyframes rainFallAngled {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(15deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-40px) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+/* — Rain Splash (on surface) — */
+@keyframes rainSplash {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* — Snow Drift (floating downward with sway) — */
+@keyframes snowDrift {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(0) translateX(30px) rotate(180deg);
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-10px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* — Snow Drift Variant (opposite sway) — */
+@keyframes snowDriftAlt {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(0) translateX(-25px) rotate(-180deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh) translateX(15px) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+/* — Lightning Flash (intense strobe) — */
+@keyframes lightningFlash {
+  0%, 100% {
+    opacity: 0;
+  }
+  1% {
+    opacity: 0.6;
+  }
+  2% {
+    opacity: 0.1;
+  }
+  3% {
+    opacity: 0.8;
+  }
+  4% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.4;
+  }
+  7% {
+    opacity: 0;
+  }
+}
+
+/* — Lightning Bolt (quick bright flash) — */
+@keyframes lightningBolt {
+  0%, 95%, 100% {
+    opacity: 0;
+    filter: brightness(1);
+  }
+  96% {
+    opacity: 1;
+    filter: brightness(3);
+  }
+  97% {
+    opacity: 0.3;
+    filter: brightness(1.5);
+  }
+  98% {
+    opacity: 0.9;
+    filter: brightness(2.5);
+  }
+  99% {
+    opacity: 0;
+    filter: brightness(1);
+  }
+}
+
+/* — Fog Drift (slow horizontal movement) — */
+@keyframes fogDrift {
+  0% {
+    transform: translateX(-10%) scaleX(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(5%) scaleX(1.05);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(-10%) scaleX(1);
+    opacity: 0.3;
+  }
+}
+
+/* — Fog Drift Variant (opposite direction) — */
+@keyframes fogDriftReverse {
+  0% {
+    transform: translateX(10%) scaleX(1.02);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateX(-8%) scaleX(0.98);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(10%) scaleX(1.02);
+    opacity: 0.25;
+  }
+}
+
+/* — Star Twinkle — */
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* — Star Twinkle Variant (different timing) — */
+@keyframes starTwinkleAlt {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 0.9;
+    transform: scale(1.3);
+  }
+  60% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+}
+
+/* — Gentle Float (card hover idle) — */
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* — Pulse Glow (soft attention pulse) — */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(96, 165, 250, 0);
+  }
+}
+
+/* — Spin (loading spinner) — */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* — Slide In Right (toast) — */
+@keyframes slideInDown {
+  0% {
+    transform: translateX(-50%) translateY(-120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* — Bounce In (subtle) — */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  70% {
+    transform: scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* — Wobble (playful micro-interaction) — */
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+/* ============================================================
+   LOADING SKELETON SHIMMER
+   ============================================================ */
+.loading-skeleton,
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+}
+
+.loading-skeleton::after,
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Skeleton shape variants */
+.skeleton-card {
+  height: 280px;
+  border-radius: var(--radius-lg);
+}
+
+.skeleton-city {
+  height: 28px;
+  width: 60%;
+  margin: 0 auto var(--space-md);
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-icon {
+  width: 100px;
+  height: 100px;
+  margin: var(--space-md) auto;
+  border-radius: var(--radius-full);
+}
+
+.skeleton-temp {
+  height: 64px;
+  width: 40%;
+  margin: var(--space-sm) auto;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-desc {
+  height: 20px;
+  width: 50%;
+  margin: var(--space-xs) auto 0;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-detail {
+  height: 60px;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-text {
+  height: 16px;
+  border-radius: var(--radius-sm);
+  max-width: 200px;
+}
+
+.skeleton-text-sm {
+  height: 12px;
+  border-radius: var(--radius-sm);
+  max-width: 120px;
+}
+
+.skeleton-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+}
+
+/* Snow theme skeletons */
+body[data-weather="snow"] .loading-skeleton::after,
+body[data-weather="snow"] .skeleton::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(100, 116, 139, 0.06) 20%,
+    rgba(100, 116, 139, 0.12) 50%,
+    rgba(100, 116, 139, 0.06) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* ============================================================
+   CARD ENTRANCE ANIMATIONS
+   ============================================================ */
+
+/* Staggered fade-in for weather cards */
+.weather-container .weather-main-card {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.weather-container .weather-details-grid {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+/* Individual detail cards stagger */
+.weather-details-grid .detail-card:nth-child(1) {
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+.weather-details-grid .detail-card:nth-child(2) {
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+.weather-details-grid .detail-card:nth-child(3) {
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both;
+}
+.weather-details-grid .detail-card:nth-child(4) {
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.44s both;
+}
+.weather-details-grid .detail-card:nth-child(5) {
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.52s both;
+}
+.weather-details-grid .detail-card:nth-child(6) {
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+/* Search container entrance */
+.search-container {
+  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+/* ============================================================
+   SMOOTH THEME TRANSITIONS
+   ============================================================ */
+
+/* All glass elements transition with the theme */
+.glass-card,
+.search-input-wrapper,
+.icon-btn,
+.unit-toggle-btn,
+.detail-icon,
+.error-toast {
+  transition: background var(--transition-theme),
+              border-color var(--transition-theme),
+              color var(--transition-theme),
+              box-shadow var(--transition-base),
+              transform var(--transition-smooth);
+}
+
+/* Temperature & text theme transitions */
+#temperature,
+.temp-unit,
+#weather-description,
+.weather-description,
+.city-name,
+.detail-value,
+.detail-label {
+  transition: color var(--transition-theme);
+}
+
+/* ============================================================
+   WEATHER OVERLAY EFFECTS
+   ============================================================ */
+
+/* — Lightning Overlay (thunderstorm) — */
+body[data-weather="thunderstorm"] .weather-overlay {
+  pointer-events: none;
+}
+
+body[data-weather="thunderstorm"] .weather-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(139, 92, 246, 0.08) 0%,
+    transparent 70%
+  );
+  animation: lightningFlash 8s ease-in-out infinite;
+}
+
+body[data-weather="thunderstorm"] .weather-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.03);
+  animation: lightningFlash 12s ease-in-out 4s infinite;
+}
+
+/* — Fog Overlay (mist/fog/haze) — */
+body[data-weather="mist"] .weather-overlay,
+body[data-weather="fog"] .weather-overlay,
+body[data-weather="haze"] .weather-overlay {
+  pointer-events: none;
+}
+
+body[data-weather="mist"] .weather-overlay::before,
+body[data-weather="fog"] .weather-overlay::before,
+body[data-weather="haze"] .weather-overlay::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(
+    ellipse at 30% 50%,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 60%
+  );
+  animation: fogDrift 20s ease-in-out infinite;
+}
+
+body[data-weather="mist"] .weather-overlay::after,
+body[data-weather="fog"] .weather-overlay::after,
+body[data-weather="haze"] .weather-overlay::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(
+    ellipse at 70% 40%,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 55%
+  );
+  animation: fogDriftReverse 25s ease-in-out 3s infinite;
+}
+
+/* — Clear Sky Overlay (subtle warmth) — */
+body[data-weather="clear"][data-time="day"] .weather-overlay::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(
+    circle,
+    rgba(246, 211, 101, 0.12) 0%,
+    rgba(253, 160, 133, 0.06) 40%,
+    transparent 70%
+  );
+  animation: sunPulse 8s ease-in-out infinite;
+  border-radius: var(--radius-full);
+}
+
+/* — Night Sky Overlay (star field hint) — */
+body[data-time="night"] .weather-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 10% 15%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 25% 35%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1.5px 1.5px at 40% 10%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 55% 25%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 70% 45%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 85% 20%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 15% 60%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 30% 75%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1.5px 1.5px at 60% 65%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 80% 70%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 50% 85%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1.5px 1.5px at 92% 55%, rgba(255, 255, 255, 0.5), transparent);
+  animation: starTwinkle 5s ease-in-out infinite alternate;
+}
+
+/* Override for thunderstorm night — keep lightning as primary */
+body[data-weather="thunderstorm"][data-time="night"] .weather-overlay::before {
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 70%
+  );
+  animation: lightningFlash 8s ease-in-out infinite;
+}
+
+/* — Snow Overlay (soft sparkle) — */
+body[data-weather="snow"] .weather-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(2px 2px at 20% 20%, rgba(200, 218, 240, 0.5), transparent),
+    radial-gradient(2px 2px at 50% 40%, rgba(200, 218, 240, 0.3), transparent),
+    radial-gradient(2px 2px at 80% 15%, rgba(200, 218, 240, 0.4), transparent),
+    radial-gradient(2px 2px at 35% 70%, rgba(200, 218, 240, 0.35), transparent),
+    radial-gradient(2px 2px at 65% 80%, rgba(200, 218, 240, 0.3), transparent),
+    radial-gradient(2px 2px at 90% 60%, rgba(200, 218, 240, 0.25), transparent);
+  animation: starTwinkle 4s ease-in-out infinite alternate;
+}
+
+/* — Rain Overlay (subtle dark wash) — */
+body[data-weather="rain"] .weather-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  animation: fadeIn 2s ease both;
+}
+
+/* — Clouds Overlay (moving cloud shadows) — */
+body[data-weather="clouds"] .weather-overlay::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 40%);
+  animation: cloudFloat 30s ease-in-out infinite;
+}
+
+/* ============================================================
+   INTERACTIVE MICRO-ANIMATIONS
+   ============================================================ */
+
+/* — Detail card hover lift — */
+.detail-card {
+  transition: transform var(--transition-smooth),
+              background var(--transition-theme),
+              border-color var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.detail-card:hover {
+  transform: translateY(-3px);
+}
+
+.detail-card:active {
+  transform: translateY(-1px);
+}
+
+/* — Search button pulse on idle — */
+#search-btn {
+  position: relative;
+}
+
+.search-input-wrapper:not(:focus-within) #search-btn::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: var(--radius-full);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* — Weather icon gentle float — */
+.weather-icon-container img,
+.weather-icon-container svg,
+.weather-icon-container .weather-icon {
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+
+/* — Temperature number transition — */
+#temperature {
+  display: inline-block;
+  transition: transform var(--transition-bounce),
+              color var(--transition-theme);
+}
+
+/* — Geo button spin on active — */
+#geo-btn.loading svg,
+#geo-btn.loading i,
+#geo-btn.loading .geo-icon {
+  animation: spin 1s linear infinite;
+}
+
+/* — Unit toggle flip — */
+.unit-toggle-btn {
+  transition: transform var(--transition-base),
+              background var(--transition-base),
+              border-color var(--transition-base),
+              color var(--transition-base);
+}
+
+/* ============================================================
+   LOADING SPINNER
+   ============================================================ */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--color-text-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner-lg {
+  width: 36px;
+  height: 36px;
+  border-width: 3px;
+}
+
+/* ============================================================
+   PAGE LOAD ANIMATION
+   ============================================================ */
+body {
+  animation: fadeIn 0.6s ease both;
+}
+
+/* ============================================================
+   REDUCED MOTION PREFERENCE
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+    animation-delay: 0ms !important;
+  }
+
+  .weather-icon-container img,
+  .weather-icon-container svg,
+  .weather-icon-container .weather-icon {
+    animation: none;
+  }
+
+  .loading-skeleton::after,
+  .skeleton::after {
+    animation: none;
+  }
+
+  .weather-overlay::before,
+  .weather-overlay::after {
+    animation: none !important;
+  }
+}
